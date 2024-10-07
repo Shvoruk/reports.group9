@@ -58,7 +58,7 @@ jobs:
 
       - name: Run tests
         run: |
-          sleep 20  # Wait for the containers to be ready
+          sleep 40  # Wait for the containers to be ready
           curl --fail http://localhost:8080/actuator/health
 
       - name: Stop and clean up Docker containers
