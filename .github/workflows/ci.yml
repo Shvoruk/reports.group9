@@ -37,14 +37,14 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
+      - name: Set up Docker Compose
+        uses: docker/compose-action@v2
+
       - name: Build and package application with Maven
         run: mvn clean package -DskipTests
 
       - name: Build Docker image
         run: docker build -t reportsappimage .
-
-      - name: Set up Docker Compose
-        uses: docker/compose-action@v2
 
       - name: Start services with Docker Compose
         run: docker-compose up --build -d
