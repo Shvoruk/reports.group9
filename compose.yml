@@ -27,7 +27,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
     ports:
-      - "8080:8080"
+      - "0:8080"
     networks:
       - reports-network
 
