@@ -12,7 +12,7 @@ services:
     volumes:
       - ./database/world.sql:/docker-entrypoint-initdb.d/world.sql
     ports:
-      - "3306:3306"
+      - "0:3306"
     networks:
       - reports-network
 
