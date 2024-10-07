@@ -1,0 +1,36 @@
+services:
+  db:
+    build:
+      context: ./database
+    image: mysql:8.0
+    container_name: world_db
+    environment:
+      MYSQL_DATABASE: world_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./database/world.sql:/docker-entrypoint-initdb.d/world.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - reports-network
+
+  app:
+    image: reportsappimage:latest
+    container_name: reportsappcontainer
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/world_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+    ports:
+      - "8080:8080"
+    networks:
+      - reports-network
+
+networks:
+  reports-network:
+    driver: bridge
