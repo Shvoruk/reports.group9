@@ -1,11 +1,29 @@
 name: A workflow for reports app
+
 on:
   push:
+    branches:
+      - main
 
 jobs:
   build:
-    name: Build and Deploy
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: world_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - name: Checkout code
@@ -17,22 +35,19 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven
-
-      - name: Compile and package with Maven
+      - name: Build and package application with Maven
         run: mvn clean package
 
-      - name: Build Docker Image
+      - name: Build Docker image
         run: docker build -t reportsappimage .
 
-      - name: Run Docker Image
-        run: docker run --name reportsappcontainer -d reportsappimage
+      - name: Start services with Docker Compose
+        run: docker-compose up -d
 
-      - name: View Docker Logs
-        run: docker logs reportsappcontainer
+      - name: Run tests
+        run: |
+          sleep 20  # Wait for the containers to be ready
+          curl --fail http://localhost:8080/actuator/health
+
+      - name: Stop and clean up Docker containers
+        run: docker-compose down
