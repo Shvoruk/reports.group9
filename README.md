@@ -1,0 +1,4 @@
+* Master Build Status ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/Shvoruk/reports.group9/main.yml?branch=master)
+* Develop Branch Status ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/Shvoruk/reports.group9/main.yml?branch=develop)
+* License [![LICENSE](https://img.shields.io/github/license/Shvoruk/reports.group9.svg?style=flat-square)](https://github.com/Shvoruk/reports.group9/blob/master/LICENSE)
+* Release [![Releases](https://img.shields.io/github/release/Shvoruk/reports.group9/all.svg?style=flat-square)](https://github.com/Shvoruk/reports.group9/releases)
