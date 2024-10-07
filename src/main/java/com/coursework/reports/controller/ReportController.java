@@ -10,6 +10,6 @@ public class ReportController {
 
     @GetMapping
     public String hello(){
-        return "hello";
+        return "hello yaaay";
     }
 }
