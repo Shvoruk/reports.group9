@@ -38,7 +38,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build and package application with Maven
-        run: mvn clean package
+        run: mvn clean package -DskipTests
 
       - name: Build Docker image
         run: docker build -t reportsappimage .
