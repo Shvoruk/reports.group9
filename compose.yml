@@ -12,7 +12,7 @@ services:
     volumes:
       - ./database/world.sql:/docker-entrypoint-initdb.d/world.sql
     ports:
-      - "0:3306"
+      - "3306:3306"
     networks:
       - reports-network
 
@@ -27,7 +27,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
     ports:
-      - "0:8080"
+      - "8080:8080"
     networks:
       - reports-network
 
