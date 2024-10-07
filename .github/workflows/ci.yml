@@ -37,11 +37,18 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Set up Docker Compose
-        uses: docker/compose-action@v2
-
       - name: Build and package application with Maven
         run: mvn clean package -DskipTests
+
+          # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+
+      # Verify Docker Compose is installed
+      - name: Verify Docker Compose version
+        run: docker-compose --version
 
       - name: Build Docker image
         run: docker build -t reportsappimage .
