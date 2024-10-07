@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-alpine
 
 WORKDIR /tmp
 
-COPY target/reports-0.0.1-SNAPSHOT.jar /tmp/reports-application.jar
+COPY target/reports-0.0.2-SNAPSHOT.jar /tmp/reports-application.jar
 
 EXPOSE 8080
 
