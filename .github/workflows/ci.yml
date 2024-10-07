@@ -44,7 +44,7 @@ jobs:
         run: docker build -t reportsappimage .
 
       - name: Start services with Docker Compose
-        run: docker-compose up -d
+        run: docker-compose up --build -d
 
       - name: Run tests
         run: |
